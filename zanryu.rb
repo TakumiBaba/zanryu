@@ -32,7 +32,6 @@ password ="CNSのパスワード"
 myip = Socket.getaddrinfo(Socket.gethostname,"http")
 ipaddress = myip[0][2]
 
-p ipaddress
 ipaddress = "133.27.234.56"
 
 if(/133.27.[0-9]{1,3}.[0-9]{1,3}/ =~ ipaddress)
@@ -44,15 +43,13 @@ login_form = top.forms.first
 login_form['u_login'] = username
 login_form['u_pass'] = password
 agent.submit(login_form)
-p logouturl = agent.page.uri
-agent.page.link_with(:text => /MY/ ).click
+agent.page.link_with(:text => "MY時間割" ).click
 my = agent.page.at('iframe')['src']
 my = my.sub(/^../,"")
-agent.get("#{sfs}#{my}")
+agent.get(sfc,my)
 classpage = agent.page.link_with(:text => lecname).click
 stayp = agent.page.form_with(:action => "https://vu9.sfc.keio.ac.jp/sfc-sfs/sfs_class/stay/stay_input.cgi")
 zanryu = agent.submit(stayp)
-p agent.page
 zanryu_form = zanryu.form_with(:name => 'formRoom')
 zanryu_form['stay_phone'] = yourphonenumber
 zanryu_form['stay_p_phone'] = parentsphonenumber
@@ -62,12 +59,8 @@ zanryu_form['selectFloor'] = selectfloor
 zanryu_form['stay_room_other'] = roomnumber
 zanryu_form['stay_reason'] = reason
 agent.submit(zanryu_form)
-p agent.page.at('body').inner_text
-
 agent.get(logouturl)
 agent.page.link_with(:href => /logout/).click
 
-else
-puts "no"
 end
 
