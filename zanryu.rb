@@ -32,7 +32,7 @@ password ="CNSのパスワード"
 myip = Socket.getaddrinfo(Socket.gethostname,"http")
 ipaddress = myip[0][2]
 
-if(/133.27.[0-9]{1,3}.[0-9]{1,3}/ =~ ipaddress)
+if(/133\.27\.\d{1,3}\.\d{1,3}/ =~ ipaddress)
 
 agent = Mechanize.new
 agent.follow_meta_refresh = true
