@@ -44,6 +44,7 @@ agent.submit(login_form)
 agent.page.link_with(:text => "MY時間割" ).click
 my = agent.page.at('iframe')['src']
 my = my.sub(/^../,"")
+sfc << my
 agent.get(sfc,my)
 classpage = agent.page.link_with(:text => lecname).click
 stayp = agent.page.form_with(:action => "https://vu9.sfc.keio.ac.jp/sfc-sfs/sfs_class/stay/stay_input.cgi")
